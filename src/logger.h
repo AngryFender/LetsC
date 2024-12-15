@@ -16,7 +16,7 @@ public:
     static void setInstance(std::unique_ptr<ILogger>&& logger);
 
 private:
-    Logger();
+    Logger() = default;
 };
 
 

@@ -4,7 +4,7 @@ ILogger& Logger::getInstance()
 {
     std::call_once(_initFlag, []()
     {
-       _logger = std::make_unique<Logger>();
+       _logger = std::unique_ptr<ILogger>(new Logger());
     });
     return *_logger;
 }
@@ -27,8 +27,6 @@ ILogger& Logger::operator<<(LogType& type)
     case ERROR: break;
     case FATAL: break;
     }
-}
 
-Logger::Logger()
-{
+    return *_logger;
 }
