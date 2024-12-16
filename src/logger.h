@@ -4,10 +4,10 @@
 #include "interface/ilogger.h"
 #include <mutex>
 
-class Logger: public ILogger
+class Logger final : public ILogger
 {
-    static std::unique_ptr<ILogger> _logger;
-    static std::once_flag _initFlag;
+    static inline std::unique_ptr<ILogger> _logger = nullptr;
+    static inline std::once_flag _initFlag;
 public:
     ~Logger() override = default;
     ILogger& operator << (LogType& type) override;

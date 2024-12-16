@@ -7,7 +7,7 @@ add_executable(clientc
     main.c
 )
 
-target_link_directories(clientc PRIVATE LetsC)
+target_link_libraries(clientc PRIVATE LetsC)
 
 add_custom_command(
         TARGET clientc
