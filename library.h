@@ -11,7 +11,24 @@
 extern "C"{
 #endif
 
+typedef void (*LogDebug)(char** message);
+void registerLogDebugCallback(LogDebug callback);
+
+typedef void (*LogInfo)(char** message);
+void registerLogInfoCallback(LogInfo callback);
+
+typedef void (*LogWarning)(char** message);
+void registerLogInfoCallback(LogWarning callback);
+
+typedef void (*LogError)(char** message);
+void registerLogInfoCallback(LogError callback);
+
+typedef void (*LogFatal)(char** message);
+void registerLogInfoCallback(LogFatal callback);
+
 CALL void hello();
+
+
 
 #ifdef __cplusplus
 }
