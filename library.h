@@ -8,6 +8,7 @@
 #endif
 
 #ifdef __cplusplus
+
 extern "C"{
 #endif
 
@@ -18,16 +19,13 @@ typedef void (*LogInfo)(char** message);
 void registerLogInfoCallback(LogInfo callback);
 
 typedef void (*LogWarning)(char** message);
-void registerLogInfoCallback(LogWarning callback);
+void registerWarningInfoCallback(LogWarning callback);
 
 typedef void (*LogError)(char** message);
-void registerLogInfoCallback(LogError callback);
+void registerLogErrorCallback(LogError callback);
 
 typedef void (*LogFatal)(char** message);
-void registerLogInfoCallback(LogFatal callback);
-
-CALL void hello();
-
+void registerLogFatalCallback(LogFatal callback);
 
 
 #ifdef __cplusplus

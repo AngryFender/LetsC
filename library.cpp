@@ -1,8 +1,27 @@
 #include "library.h"
+#include "src/logger.h"
 
-#include <iostream>
-
-void hello()
+void registerLogDebugCallback(const LogDebug callback)
 {
-    std::cout << "Hello, World!" << std::endl;
+   Logger::registerDebugCallback(callback);
+}
+
+void registerLogInfoCallback(const LogInfo callback)
+{
+   Logger::registerInfoCallback(callback);
+}
+
+void registerWarningInfoCallback(const LogWarning callback)
+{
+   Logger::registerWarningCallback(callback);
+}
+
+void registerLogErrorCallback(const LogError callback)
+{
+   Logger::registerErrorCallback(callback);
+}
+
+void registerLogFatalCallback(const LogFatal callback)
+{
+   Logger::registerFatalCallback(callback);
 }

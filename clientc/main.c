@@ -23,6 +23,5 @@ void printFatal(const char* message){
 
 int main(){
     printf("Starting ClientC\n");
-    hello();
     return 0;
 }
