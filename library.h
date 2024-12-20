@@ -12,19 +12,19 @@
 extern "C"{
 #endif
 
-typedef void (*LogDebug)(char** message);
+typedef void (*LogDebug)(const char* message);
 void registerLogDebugCallback(LogDebug callback);
 
-typedef void (*LogInfo)(char** message);
+typedef void (*LogInfo)(const char* message);
 void registerLogInfoCallback(LogInfo callback);
 
-typedef void (*LogWarning)(char** message);
-void registerWarningInfoCallback(LogWarning callback);
+typedef void (*LogWarning)(const char* message);
+void registerLogWarningCallback(LogWarning callback);
 
-typedef void (*LogError)(char** message);
+typedef void (*LogError)(const char* message);
 void registerLogErrorCallback(LogError callback);
 
-typedef void (*LogFatal)(char** message);
+typedef void (*LogFatal)(const char* message);
 void registerLogFatalCallback(LogFatal callback);
 
 

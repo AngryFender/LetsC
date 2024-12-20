@@ -11,7 +11,7 @@ void registerLogInfoCallback(const LogInfo callback)
    Logger::registerInfoCallback(callback);
 }
 
-void registerWarningInfoCallback(const LogWarning callback)
+void registerLogWarningCallback(const LogWarning callback)
 {
    Logger::registerWarningCallback(callback);
 }

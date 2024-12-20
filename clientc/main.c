@@ -23,5 +23,10 @@ void printFatal(const char* message){
 
 int main(){
     printf("Starting ClientC\n");
+	registerLogDebugCallback(&printDebug);
+	registerLogInfoCallback(&printInfo);
+	registerLogWarningCallback(&printWarning);
+	registerLogErrorCallback(&printError);
+	registerLogFatalCallback(&printFatal);
     return 0;
 }
