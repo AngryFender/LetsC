@@ -3,25 +3,25 @@
 
 void registerLogDebugCallback(const LogDebug callback)
 {
-   Logger::registerDebugCallback(callback);
+   Logger::getInstance().registerDebugCallback(callback);
 }
 
 void registerLogInfoCallback(const LogInfo callback)
 {
-   Logger::registerInfoCallback(callback);
+   Logger::getInstance().registerInfoCallback(callback);
 }
 
 void registerLogWarningCallback(const LogWarning callback)
 {
-   Logger::registerWarningCallback(callback);
+   Logger::getInstance().registerWarningCallback(callback);
 }
 
 void registerLogErrorCallback(const LogError callback)
 {
-   Logger::registerErrorCallback(callback);
+   Logger::getInstance().registerErrorCallback(callback);
 }
 
 void registerLogFatalCallback(const LogFatal callback)
 {
-   Logger::registerFatalCallback(callback);
+   Logger::getInstance().registerFatalCallback(callback);
 }

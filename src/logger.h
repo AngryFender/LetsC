@@ -9,26 +9,27 @@ class Logger final : public ILogger
 {
     static inline std::unique_ptr<ILogger> _logger = nullptr;
     static inline std::once_flag _initFlag;
-    static inline LogDebug _logDebug = nullptr;
-    static inline LogInfo _logInfo = nullptr;
-    static inline LogWarning _logWarning = nullptr;
-    static inline LogError _logError = nullptr;
-    static inline LogFatal _logFatal = nullptr;
+    LogDebug _logDebug = nullptr;
+    LogInfo _logInfo = nullptr;
+    LogWarning _logWarning = nullptr;
+    LogError _logError = nullptr;
+    LogFatal _logFatal = nullptr;
+
 public:
     ~Logger() override = default;
     ILogger& operator << (LogType& type) override;
 
     static ILogger& getInstance();
     static void setInstance(std::unique_ptr<ILogger>&& logger);
-    static void registerDebugCallback(LogDebug logDebug);
-    static void registerInfoCallback(LogInfo logInfo);
-    static void registerWarningCallback(LogWarning logWarning);
-    static void registerErrorCallback(LogError logError);
-    static void registerFatalCallback(LogFatal logFatal);
+    void registerDebugCallback(LogDebug logDebug) override;
+    void registerInfoCallback(LogInfo logInfo) override;
+    void registerWarningCallback(LogWarning logWarning) override;
+    void registerErrorCallback(LogError logError) override;
+    void registerFatalCallback(LogFatal logFatal) override;
 private:
     Logger() = default;
 };
 
-
+#define Log(level) Logger::
 
 #endif //LOGGER_H
