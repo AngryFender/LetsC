@@ -15,7 +15,8 @@ class ILogger
 {
 public:
     virtual ~ILogger() = default;
-    virtual ILogger& operator << (LogType& type) = 0;
+    virtual ILogger& operator << (const char* message) = 0;
+    virtual ILogger& setLogLevel(const LogType& type) = 0;
     virtual void registerDebugCallback(LogDebug logDebug) = 0;
     virtual void registerInfoCallback(LogInfo logInfo) = 0;
     virtual void registerWarningCallback(LogWarning logWarning) = 0;

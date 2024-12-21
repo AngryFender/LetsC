@@ -1,5 +1,6 @@
 #include "logger.h"
 
+
 ILogger& Logger::getInstance()
 {
     std::call_once(_initFlag, []()
@@ -15,6 +16,12 @@ void Logger::setInstance(std::unique_ptr<ILogger>&& logger)
     {
         _logger = std::move(logger);
     }
+}
+
+ILogger& Logger::setLogLevel(const LogType& type)
+{
+    _logType = type;
+    return *_logger;
 }
 
 void Logger::registerDebugCallback(const LogDebug logDebug)
@@ -56,15 +63,15 @@ void Logger::registerFatalCallback(const LogFatal logFatal)
     }
 }
 
-ILogger& Logger::operator<<(LogType& type)
+ILogger& Logger::operator<<(const char* message)
 {
-    switch(type)
+    switch(_logType)
     {
-    case DEBUG: break;
-    case INFO: break;
-    case WARNING: break;
-    case ERROR: break;
-    case FATAL: break;
+    case DEBUG: _logDebug(message);break;
+    case INFO: _logInfo(message); break;
+    case WARNING: _logWarning(message); break;
+    case ERROR: _logError(message); break;
+    case FATAL: _logFatal(message); break;
     }
 
     return *_logger;

@@ -14,13 +14,15 @@ class Logger final : public ILogger
     LogWarning _logWarning = nullptr;
     LogError _logError = nullptr;
     LogFatal _logFatal = nullptr;
+    LogType _logType;
 
 public:
     ~Logger() override = default;
-    ILogger& operator << (LogType& type) override;
+    ILogger& operator << (const char* message) override;
 
     static ILogger& getInstance();
     static void setInstance(std::unique_ptr<ILogger>&& logger);
+    ILogger& setLogLevel(const LogType& type) override;
     void registerDebugCallback(LogDebug logDebug) override;
     void registerInfoCallback(LogInfo logInfo) override;
     void registerWarningCallback(LogWarning logWarning) override;
@@ -30,6 +32,6 @@ private:
     Logger() = default;
 };
 
-#define Log(level) Logger::
+#define Log(level) Logger::getInstance().setLogLevel(LogType::level)
 
 #endif //LOGGER_H
