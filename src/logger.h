@@ -15,6 +15,7 @@ class Logger final : public ILogger
     LogError _logError = nullptr;
     LogFatal _logFatal = nullptr;
     LogType _logType;
+    std::mutex _mutex;
 
 public:
     ~Logger() override = default;

@@ -1,6 +1,5 @@
 #include "logger.h"
 
-
 ILogger& Logger::getInstance()
 {
     std::call_once(_initFlag, []()
@@ -65,6 +64,7 @@ void Logger::registerFatalCallback(const LogFatal logFatal)
 
 ILogger& Logger::operator<<(const char* message)
 {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
     switch(_logType)
     {
     case DEBUG: _logDebug(message);break;
@@ -76,3 +76,6 @@ ILogger& Logger::operator<<(const char* message)
 
     return *_logger;
 }
+
+
+
