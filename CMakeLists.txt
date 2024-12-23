@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD 17)
 add_library(LetsC
     SHARED library.cpp
         src/interface/ilogger.h
+        src/interface/idb.h
         src/logger.cpp
         src/logger.h
 )
