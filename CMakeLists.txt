@@ -4,6 +4,7 @@ project(LetsC)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 
+find_package(SQLite3 REQUIRED)
 
 add_library(LetsC
     SHARED library.cpp
@@ -13,4 +14,5 @@ add_library(LetsC
         src/logger.h
 )
 target_compile_definitions(LetsC PRIVATE DLL_EXPORT)
+target_link_libraries(LetsC PRIVATE SQLITE::Sqlite3)
 add_subdirectory(clientc)
