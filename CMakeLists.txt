@@ -12,7 +12,10 @@ add_library(LetsC
         src/interface/idb.h
         src/logger.cpp
         src/logger.h
+        src/sqlite.cpp
+        src/sqlite.h
 )
 target_compile_definitions(LetsC PRIVATE DLL_EXPORT)
-target_link_libraries(LetsC PRIVATE SQLITE::Sqlite3)
+target_link_libraries(LetsC PRIVATE SQLite::SQLite3)
+
 add_subdirectory(clientc)
