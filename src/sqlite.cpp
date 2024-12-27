@@ -1,6 +1,11 @@
 #include "sqlite.h"
 #include "logger.h"
 
+int Sqlite::callBack(void* unused, int count, char** data, char** columns)
+{
+    return 0;
+}
+
 Sqlite::Sqlite(std::string& filename):_sqlite3(nullptr)
 {
     Log(DEBUG)<<"Opening Sqlite db";
@@ -15,6 +20,8 @@ Sqlite::Sqlite(std::string& filename):_sqlite3(nullptr)
 
 bool Sqlite::modQuery(const char* statement, const int* types, const char** values, int valuesCount)
 {
+//    char** errorMessage;
+//    sqlite3_exec(_sqlite3, statement, this->callBack,nullptr,errorMessage);
     return false;
 }
 
