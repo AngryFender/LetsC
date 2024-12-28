@@ -20,8 +20,11 @@ Sqlite::Sqlite(std::string& filename):_sqlite3(nullptr)
 
 bool Sqlite::modQuery(const char* statement, const int* types, const char** values, int valuesCount)
 {
-//    char** errorMessage;
-//    sqlite3_exec(_sqlite3, statement, this->callBack,nullptr,errorMessage);
+    char* errorMessage;
+    sqlite3_exec(_sqlite3, statement, callBack,nullptr,&errorMessage);
+
+
+    sqlite3_free(errorMessage);
     return false;
 }
 
