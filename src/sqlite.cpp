@@ -21,11 +21,27 @@ Sqlite::Sqlite(std::string& filename):_sqlite3(nullptr)
 bool Sqlite::modQuery(const char* statement, const int* types, const char** values, int valuesCount)
 {
     char* errorMessage;
-    sqlite3_exec(_sqlite3, statement, callBack,nullptr,&errorMessage);
+    sqlite3_stmt* stmt;
+    bool result = true;
 
+    if (sqlite3_prepare_v2(_sqlite3, statement, -1, &stmt, NULL) != SQLITE_OK) {
+        sqlite3_close(_sqlite3);
+        return false;
+    }
+
+    for(int count = 0; count < valuesCount; ++count )
+    {
+        //switch(types)
+        //sqlite3_bind_text(stmt, ...);
+        //sqlite3_bind_int(stmt, ...);
+    }
+
+    if (sqlite3_step(stmt) != SQLITE_DONE) {
+        result = false;
+    }
 
     sqlite3_free(errorMessage);
-    return false;
+    return result;
 }
 
 bool Sqlite::getQuery(const char* statement, ResultRow*** results, int resultsCount)
