@@ -35,10 +35,10 @@ bool Sqlite::modQuery(const char* statement, const int* types, const char** valu
         position = count+1;
         switch(types[count])
         {
-        case SQLITE_INTEGER: //sqlite3_bind_int(stmt,position,values[count]); break;
-        case SQLITE_FLOAT: //sqlite3_bind_double(stmt,position, values[count]);break;
-        case SQLITE_TEXT: //sqlite3_bind_text(stmt,position, values[count],) break;
-        case SQLITE_BLOB: //sqlite3_bind_blob(stmt, position,);break;
+        case SQLITE_INTEGER: sqlite3_bind_int(stmt,position,std::stoi(values[count])); break;
+        case SQLITE_FLOAT: sqlite3_bind_double(stmt,position, std::stod(values[count]));break;
+        case SQLITE_TEXT: sqlite3_bind_text(stmt,position, values[count],-1,SQLITE_STATIC); break;
+        case SQLITE_BLOB: sqlite3_bind_blob(stmt, position,values[count],-1,SQLITE_STATIC);break;
         case SQLITE_NULL: sqlite3_bind_null(stmt,position); break;
         }
     }
@@ -47,6 +47,7 @@ bool Sqlite::modQuery(const char* statement, const int* types, const char** valu
         result = false;
     }
 
+    sqlite3_finalize(stmt);
     sqlite3_free(errorMessage);
     return result;
 }
