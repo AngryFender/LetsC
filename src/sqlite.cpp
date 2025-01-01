@@ -24,7 +24,8 @@ bool Sqlite::modQuery(const char* statement, const int* types, const char** valu
     sqlite3_stmt* stmt;
     bool result = true;
 
-    if (sqlite3_prepare_v2(_sqlite3, statement, -1, &stmt, NULL) != SQLITE_OK) {
+    if (sqlite3_prepare_v2(_sqlite3, statement, -1, &stmt, NULL) != SQLITE_OK)
+    {
         sqlite3_close(_sqlite3);
         return false;
     }
@@ -54,5 +55,20 @@ bool Sqlite::modQuery(const char* statement, const int* types, const char** valu
 
 bool Sqlite::getQuery(const char* statement, ResultRow*** results, int resultsCount)
 {
-    return false;
+    sqlite3_stmt* stmt;
+
+    if(sqlite3_prepare_v2(_sqlite3, statement, -1, &stmt, NULL) != SQLITE_OK)
+    {
+        sqlite3_close(_sqlite3);
+        return false;
+    }
+
+    while(sqlite3_step(stmt) == SQLITE_ROW)
+    {
+
+    }
+
+    sqlite3_finalize(stmt);
+    
+    return true;
 }
