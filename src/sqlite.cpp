@@ -18,6 +18,11 @@ Sqlite::Sqlite(std::string& filename):_sqlite3(nullptr)
 
 }
 
+Sqlite::~Sqlite()
+{
+    sqlite3_close(_sqlite3);
+}
+
 bool Sqlite::modQuery(const char* statement, const int* types, const char** values, int valuesCount)
 {
     char* errorMessage;
@@ -69,6 +74,6 @@ bool Sqlite::getQuery(const char* statement, ResultRow*** results, int resultsCo
     }
 
     sqlite3_finalize(stmt);
-    
+
     return true;
 }

@@ -12,7 +12,7 @@ private:
 
 public:
     Sqlite(std::string& filename);
-    ~Sqlite() override {};
+    ~Sqlite() override;
 
     bool modQuery(const char* statement,const int* types, const char** values,int valuesCount) override;
     bool getQuery(const char* statement,ResultRow*** results, int resultsCount) override;
