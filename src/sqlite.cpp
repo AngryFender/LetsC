@@ -68,9 +68,14 @@ bool Sqlite::getQuery(const char* statement, ResultRow*** results, int resultsCo
         return false;
     }
 
+    const int column_count = sqlite3_column_count(stmt);
+
     while(sqlite3_step(stmt) == SQLITE_ROW)
     {
-
+        for(int i = 0; i < column_count; ++i)
+        {
+            //sqlite3_column_text(stmt,i) ;
+        }
     }
 
     sqlite3_finalize(stmt);
