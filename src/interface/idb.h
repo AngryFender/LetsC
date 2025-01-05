@@ -4,7 +4,7 @@
 struct ResultRow
 {
     int columnCount;
-    char** columns;
+    const char** columns;
 };
 
 class IDb

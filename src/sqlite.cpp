@@ -1,4 +1,8 @@
 #include "sqlite.h"
+
+#include <string.h>
+#include <vector>
+
 #include "logger.h"
 
 int Sqlite::callBack(void* unused, int count, char** data, char** columns)
@@ -69,16 +73,26 @@ bool Sqlite::getQuery(const char* statement, ResultRow*** results, int resultsCo
     }
 
     const int column_count = sqlite3_column_count(stmt);
+    std::vector<ResultRow*> dynamicRows;
 
     while(sqlite3_step(stmt) == SQLITE_ROW)
     {
+        ResultRow *rr = new ResultRow;
+        rr->columns = new const char*[column_count];
+
         for(int i = 0; i < column_count; ++i)
         {
-            //sqlite3_column_text(stmt,i) ;
+            rr->columns[i] = strdup(reinterpret_cast<const char*>(sqlite3_column_text(stmt, i)));
         }
+        dynamicRows.push_back(rr);
+    }
+
+    *results = new ResultRow *[dynamicRows.size()];
+    for(int id = 0; id < dynamicRows.size(); ++id )
+    {
+        *results[id] = dynamicRows[id];
     }
 
     sqlite3_finalize(stmt);
-
     return true;
 }
