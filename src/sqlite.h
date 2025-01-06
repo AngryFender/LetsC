@@ -7,9 +7,6 @@
 class Sqlite final : public IDb{
     sqlite3* _sqlite3;
 
-private:
-    static int callBack(void* unused, int count, char** data, char** columns) ;
-
 public:
     Sqlite(std::string& filename);
     ~Sqlite() override;
