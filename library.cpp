@@ -1,5 +1,11 @@
 #include "library.h"
 #include "src/logger.h"
+#include "src/sqlite.h"
+
+struct Sql
+{
+   Sqlite * sqlite;
+};
 
 void registerLogDebugCallback(const LogDebug callback)
 {
@@ -25,3 +31,5 @@ void registerLogFatalCallback(const LogFatal callback)
 {
    Logger::getInstance().registerFatalCallback(callback);
 }
+
+

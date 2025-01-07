@@ -9,23 +9,26 @@
 
 #ifdef __cplusplus
 
+typedef struct Sql Sql;
+
 extern "C"{
 #endif
 
-typedef void (*LogDebug)(const char* message);
+typedef CALL void (*LogDebug)(const char* message);
 void registerLogDebugCallback(LogDebug callback);
 
-typedef void (*LogInfo)(const char* message);
+typedef CALL void (*LogInfo)(const char* message);
 void registerLogInfoCallback(LogInfo callback);
 
-typedef void (*LogWarning)(const char* message);
+typedef CALL void (*LogWarning)(const char* message);
 void registerLogWarningCallback(LogWarning callback);
 
-typedef void (*LogError)(const char* message);
+typedef CALL void (*LogError)(const char* message);
 void registerLogErrorCallback(LogError callback);
 
-typedef void (*LogFatal)(const char* message);
+typedef CALL void (*LogFatal)(const char* message);
 void registerLogFatalCallback(LogFatal callback);
+
 
 
 #ifdef __cplusplus
