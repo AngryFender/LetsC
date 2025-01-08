@@ -4,8 +4,35 @@
 
 struct Sql
 {
-   Sqlite * sqlite;
+   IDb * db;
 };
+
+Sql * createSqlite(const char* filename)
+{
+   Sql * handler = new Sql;
+   handler->db = new Sqlite(filename);
+   return handler;
+}
+
+int modifyQuery(const Sql* handler, const char* statement, int* types, const char** values, const int count)
+{
+   if(handler == nullptr || handler->db->modQuery(statement,types,values,count))
+   {
+      return 0;
+   }
+   return 1;
+}
+
+int destorySqlite(Sql * handler)
+{
+   if(handler == nullptr)
+   {
+      return 0;
+   }
+   delete handler->db;
+   delete handler;
+   return 1;
+}
 
 void registerLogDebugCallback(const LogDebug callback)
 {

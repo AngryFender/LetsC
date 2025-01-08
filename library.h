@@ -14,6 +14,10 @@ typedef struct Sql Sql;
 extern "C"{
 #endif
 
+Sql* createSqlite(const char* filename);
+int modifyQuery(const Sql* handler, const char* statement, int* types, const char** values, const int count);
+int destroySqlite(Sql* handler);
+
 typedef CALL void (*LogDebug)(const char* message);
 void registerLogDebugCallback(LogDebug callback);
 
