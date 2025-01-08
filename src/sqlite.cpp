@@ -14,6 +14,17 @@ Sqlite::Sqlite(std::string& filename):_sqlite3(nullptr)
     }
 }
 
+Sqlite::Sqlite(const char* filename):_sqlite3(nullptr)
+{
+    Log(DEBUG)<<"SQLite: Opening Sqlite db \n";
+    int result = sqlite3_open(filename,&_sqlite3);
+
+    if(_sqlite3 == nullptr)
+    {
+        Log(ERROR)<<"SQLite: Failed to open Sqlite db "<<filename<<"\"...Error message:\n"<< sqlite3_errmsg(_sqlite3)<<"\"\n";
+    }
+}
+
 Sqlite::~Sqlite()
 {
     sqlite3_close(_sqlite3);

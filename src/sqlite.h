@@ -9,6 +9,7 @@ class Sqlite final : public IDb{
 
 public:
     Sqlite(std::string& filename);
+    Sqlite(const char* filename);
     ~Sqlite() override;
 
     bool modQuery(const char* statement,const int* types, const char** values,int valuesCount) override;
