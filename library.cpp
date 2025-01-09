@@ -16,7 +16,16 @@ Sql * createSqlite(const char* filename)
 
 int modifyQuery(const Sql* handler, const char* statement, int* types, const char** values, const int count)
 {
-   if(handler == nullptr || handler->db->modQuery(statement,types,values,count))
+   if(handler == nullptr || !handler->db->modQuery(statement,types,values,count))
+   {
+      return 0;
+   }
+   return 1;
+}
+
+int retrieveQuery(const Sql* handler, const char* statement, ResultRow*** row, int* resultsCount)
+{
+   if(handler == nullptr || !handler->db->getQuery(statement, row, resultsCount))
    {
       return 0;
    }
@@ -58,5 +67,6 @@ void registerLogFatalCallback(const LogFatal callback)
 {
    Logger::getInstance().registerFatalCallback(callback);
 }
+
 
 

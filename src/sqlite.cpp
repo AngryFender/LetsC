@@ -66,7 +66,7 @@ bool Sqlite::modQuery(const char* statement, const int* types, const char** valu
     return result;
 }
 
-bool Sqlite::getQuery(const char* statement, ResultRow*** results, int resultsCount)
+bool Sqlite::getQuery(const char* statement, ResultRow*** results, int* resultsCount)
 {
     sqlite3_stmt* stmt;
 

@@ -8,15 +8,20 @@
 #endif
 
 #ifdef __cplusplus
-
-typedef struct Sql Sql;
-
 extern "C"{
 #endif
 
-Sql* createSqlite(const char* filename);
-int modifyQuery(const Sql* handler, const char* statement, int* types, const char** values, const int count);
-int destroySqlite(Sql* handler);
+typedef struct
+{
+    const char** columns;
+    int columnsCount;
+} ResultRow;
+
+typedef struct Sql Sql;
+Sql* CALL createSqlite(const char* filename);
+int CALL modifyQuery(const Sql* handler, const char* statement, int* types, const char** values, const int count);
+int CALL retrieveQuery(const Sql* handler, const char* statement, ResultRow*** row, int* resultsCount);
+int CALL destroySqlite(Sql* handler);
 
 typedef CALL void (*LogDebug)(const char* message);
 void registerLogDebugCallback(LogDebug callback);
