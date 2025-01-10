@@ -23,12 +23,38 @@ int modifyQuery(const Sql* handler, const char* statement, int* types, const cha
    return 1;
 }
 
-int retrieveQuery(const Sql* handler, const char* statement, ResultRow*** row, int* resultsCount)
+int retrieveQuery(const Sql* handler, const char* statement, ResultRow*** rows, int* resultsCount)
 {
-   if(handler == nullptr || !handler->db->getQuery(statement, row, resultsCount))
+   if(handler == nullptr || !handler->db->getQuery(statement, rows, resultsCount))
    {
       return 0;
    }
+   return 1;
+}
+
+int deleteResultRows(ResultRow*** rows, const int resultsCount)
+{
+   if(rows == nullptr)
+   {
+      return 0;
+   }
+
+   ResultRow** ptrRows = *rows;
+   for(int r = 0; r < resultsCount; ++r)
+   {
+      ResultRow* row = ptrRows[r];
+      const int columnCount = row->columnsCount;
+      for(int c = 0; c < columnCount; ++c)
+      {
+         delete row->columns[c];
+      }
+      delete row;
+      row = nullptr;
+   }
+
+   delete *rows;
+   *rows = nullptr;
+
    return 1;
 }
 
@@ -67,6 +93,5 @@ void registerLogFatalCallback(const LogFatal callback)
 {
    Logger::getInstance().registerFatalCallback(callback);
 }
-
 
 
