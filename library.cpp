@@ -58,7 +58,7 @@ int deleteResultRows(ResultRow*** rows, const int resultsCount)
    return 1;
 }
 
-int destorySqlite(Sql * handler)
+int destroySqlite(Sql * handler)
 {
    if(handler == nullptr)
    {
