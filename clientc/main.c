@@ -40,9 +40,25 @@ int main(){
 	types[2] = (int) 0;  values[2] = "33.3";
 
 	modifyQuery(handler,"INSERT INTO Test (Numbers, Words, Points) VALUES (?, ?,?);", types, values, valueCount);
+
+	ResultRow **rows;
+	int resultsCount = 0;
+
+	retrieveQuery(handler, "SELECT Numbers, Words, Points FROM Test", *rows, resultsCount);
+	for(int r = 0; r < resultsCount; ++r )
+	{
+		ResultRow *row = rows[r];
+		char** columns = row->columns;
+		const int columnsCount = row->columnsCount;
+		for(int c = 0; c < columnsCount; ++c)
+		{
+			printf(columns[c]);
+		}
+		printf("\n");
+	}
+
+	deleteResultRows(*rows, resultsCount);
+
 	destroySqlite(handler);
-
-
-
     return 0;
 }
