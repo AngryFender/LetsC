@@ -83,7 +83,7 @@ bool Sqlite::getQuery(const char* statement, ResultRow*** results, int* resultsC
     while(sqlite3_step(stmt) == SQLITE_ROW)
     {
         ResultRow *rr = new ResultRow;
-        rr->columns = new const char*[column_count];
+        rr->columns = new char*[column_count];
 
         for(int i = 0; i < column_count; ++i)
         {

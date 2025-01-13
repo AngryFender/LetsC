@@ -11,9 +11,19 @@
 extern "C"{
 #endif
 
+enum SqlType
+{
+    SQLITE_INTEGER =1,
+    SQLITE_FLOAT ,
+    SQLITE_TEXT ,
+    SQLITE_BLOB ,
+    SQLITE_NULL
+};
+
+
 typedef struct
 {
-    const char** columns;
+    char** columns;
     int columnsCount;
 } ResultRow;
 

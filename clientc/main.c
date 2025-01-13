@@ -29,22 +29,24 @@ int main(){
 	registerLogErrorCallback(&printError);
 	registerLogFatalCallback(&printFatal);
 
-	Sql* handler = createSqlite("example");
+	Sql* handler = createSqlite("example.db");
 
 	const int valueCount = 3;
 	int types[valueCount];
 	const char* values[valueCount];
 
-	types[0] = (int) 0;  values[0] = "33";
-	types[1] = (int) 0;  values[1] = "thieves";
-	types[2] = (int) 0;  values[2] = "33.3";
+	types[0] = (int) SQLITE_INTEGER;  values[0] = "33";
+	types[1] = (int) SQLITE_TEXT;  values[1] = "thieves";
+	types[2] = (int) SQLITE_FLOAT;  values[2] = "33.3";
 
 	modifyQuery(handler,"INSERT INTO Test (Numbers, Words, Points) VALUES (?, ?,?);", types, values, valueCount);
 
-	ResultRow **rows;
+	ResultRow **rows = NULL;
 	int resultsCount = 0;
 
-	retrieveQuery(handler, "SELECT Numbers, Words, Points FROM Test", *rows, resultsCount);
+	retrieveQuery(handler, "SELECT Numbers, Words, Points FROM Test", &rows, &resultsCount);
+
+	printf("Total results %d",resultsCount);
 	for(int r = 0; r < resultsCount; ++r )
 	{
 		ResultRow *row = rows[r];
@@ -57,7 +59,7 @@ int main(){
 		printf("\n");
 	}
 
-	deleteResultRows(*rows, resultsCount);
+	deleteResultRows(&rows, resultsCount);
 
 	destroySqlite(handler);
     return 0;
