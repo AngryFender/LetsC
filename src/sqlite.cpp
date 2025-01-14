@@ -32,7 +32,6 @@ Sqlite::~Sqlite()
 
 bool Sqlite::modQuery(const char* statement, const int* types, const char** values, int valuesCount)
 {
-    char* errorMessage;
     sqlite3_stmt* stmt;
     bool result = true;
 
@@ -62,7 +61,6 @@ bool Sqlite::modQuery(const char* statement, const int* types, const char** valu
     }
 
     sqlite3_finalize(stmt);
-    sqlite3_free(errorMessage);
     return result;
 }
 
@@ -84,6 +82,7 @@ bool Sqlite::getQuery(const char* statement, ResultRow*** results, int* resultsC
     {
         ResultRow *rr = new ResultRow;
         rr->columns = new char*[column_count];
+        rr->columnsCount = column_count;
 
         for(int i = 0; i < column_count; ++i)
         {
@@ -92,12 +91,15 @@ bool Sqlite::getQuery(const char* statement, ResultRow*** results, int* resultsC
         dynamicRows.push_back(rr);
     }
 
-    *results = new ResultRow *[dynamicRows.size()];
-    for(int id = 0; id < dynamicRows.size(); ++id )
+    const int rows = dynamicRows.size();
+    ResultRow** arrayRows = new ResultRow *[rows];
+    for(int id = 0; id < rows; ++id )
     {
-        *results[id] = dynamicRows[id];
+        arrayRows[id] = dynamicRows[id];
     }
 
+    *results = arrayRows;
+    *resultsCount = rows;
     sqlite3_finalize(stmt);
     return true;
 }
