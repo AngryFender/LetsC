@@ -46,13 +46,13 @@ int deleteResultRows(ResultRow*** rows, const int resultsCount)
       const int columnCount = row->columnsCount;
       for(int c = 0; c < columnCount; ++c)
       {
-         delete row->columns[c];
+         free(row->columns[c]);
       }
+      delete[] row->columns;
       delete row;
-      row = nullptr;
    }
 
-   delete *rows;
+   delete[] ptrRows;
    *rows = nullptr;
 
    return 1;

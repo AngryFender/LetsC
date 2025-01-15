@@ -49,7 +49,7 @@ int main(){
 	printf("Total results %d\n",resultsCount);
 	for(int r = 0; r < resultsCount; ++r )
 	{
-		ResultRow* row = rows[r];
+		const ResultRow* row = rows[r];
 		char** columns = row->columns;
 		const int columnsCount = row->columnsCount;
 		for(int c = 0; c < columnsCount; ++c)

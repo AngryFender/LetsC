@@ -80,7 +80,7 @@ bool Sqlite::getQuery(const char* statement, ResultRow*** results, int* resultsC
 
     while(sqlite3_step(stmt) == SQLITE_ROW)
     {
-        ResultRow *rr = new ResultRow;
+        ResultRow* rr = new ResultRow;
         rr->columns = new char*[column_count];
         rr->columnsCount = column_count;
 
@@ -92,7 +92,7 @@ bool Sqlite::getQuery(const char* statement, ResultRow*** results, int* resultsC
     }
 
     const int rows = dynamicRows.size();
-    ResultRow** arrayRows = new ResultRow *[rows];
+    ResultRow** arrayRows = new ResultRow* [rows];
     for(int id = 0; id < rows; ++id )
     {
         arrayRows[id] = dynamicRows[id];
